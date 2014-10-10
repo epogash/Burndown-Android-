@@ -37,6 +37,7 @@ public final class R {
     public static final class menu {
         public static final int choices=0x7f070000;
         public static final int main=0x7f070001;
+        public static final int parse_bugzilla=0x7f070002;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -48,6 +49,7 @@ public final class R {
         public static final int stories=0x7f050005;
         public static final int time=0x7f050006;
         public static final int title_activity_choices=0x7f050009;
+        public static final int title_activity_parse_bugzilla=0x7f05000b;
         public static final int username=0x7f050002;
         public static final int velocity=0x7f050007;
     }

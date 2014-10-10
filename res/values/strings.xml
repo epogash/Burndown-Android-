@@ -12,5 +12,6 @@
     <string name="login">Login</string>
     <string name="title_activity_choices">ChoicesActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_parse_bugzilla">ParseBugzillaActivity</string>
 
 </resources>

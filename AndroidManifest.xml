@@ -26,6 +26,10 @@
             android:name=".ChoicesActivity"
             android:label="@string/title_activity_choices" >
         </activity>
+        <activity
+            android:name=".ParseBugzillaActivity"
+            android:label="@string/title_activity_parse_bugzilla" >
+        </activity>
     </application>
 
 </manifest>
