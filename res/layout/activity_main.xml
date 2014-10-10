@@ -35,6 +35,7 @@
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
+        android:onClick="openProjectList"
         android:text="@string/login" />
 
 </RelativeLayout>

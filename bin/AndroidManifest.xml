@@ -30,6 +30,10 @@
             android:name=".ParseBugzillaActivity"
             android:label="@string/title_activity_parse_bugzilla" >
         </activity>
+        <activity
+            android:name=".ProjectListViewActivity"
+            android:label="@string/title_activity_project_list_view" >
+        </activity>
     </application>
 
 </manifest>
