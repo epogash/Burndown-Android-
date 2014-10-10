@@ -4,10 +4,13 @@
     <string name="app_name">BurnDown</string>
     <string name="action_settings">Settings</string>
     <string name="username">Username</string>
-	<string name="password">Password</string>
-	<string name="burndown">Burndown</string>
-	<string name="stories">Stories</string>
-	<string name="time">Time</string>
-	<string name="velocity">Velocity</string>
-	<string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="burndown">Burndown</string>
+    <string name="stories">Stories</string>
+    <string name="time">Time</string>
+    <string name="velocity">Velocity</string>
+    <string name="login">Login</string>
+    <string name="title_activity_choices">ChoicesActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
