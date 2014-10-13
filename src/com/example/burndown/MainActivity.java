@@ -1,4 +1,5 @@
 package com.example.burndown;
+
 //package com.abelalvarez.designproject;
 
 import android.app.Activity;
@@ -12,99 +13,126 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
 public class MainActivity extends Activity {
-    TextView error;
-    boolean check = false;
-    String usernameFile = "USRname.txt";
+	private TextView error;
+	private boolean check = false;
+	private String passwordFile = "PASS.txt";
+	private String usernameFile = "USRname.txt";
+	
+	public String getUsernameFile() {
+		return usernameFile;
+	}
 
+	public String getPasswordFile() {
+		return passwordFile;
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        readUsername();
-    }
-    public void toggle(View v){
-        RadioButton remember = (RadioButton)v;
-        remember.setChecked(check);
-        check = !check;
-    }
-    public void writeUsername(){
-        EditText user = (EditText)findViewById(R.id.username);
-        String username = user.getText().toString();
-        FileOutputStream write;
-        try{
-            write = openFileOutput(usernameFile, Context.MODE_PRIVATE);
-            write.write(username.getBytes());
-            write.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+	
 
-    }
-    public void readUsername(){
-       try{
-           FileInputStream input = openFileInput(usernameFile);
-           BufferedReader inputRead = new BufferedReader(new InputStreamReader(input));
-           String username = inputRead.readLine();
-           EditText user = (EditText)findViewById(R.id.username);
-           user.setText((CharSequence) username);
-       }catch (FileNotFoundException e) {
-           e.printStackTrace();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		readUser();
+		readPassword();
+	}
 
-       }catch (IOException e) {
-           e.printStackTrace();
+	private void toggle(View v) {
+		RadioButton remember = (RadioButton) v;
+		remember.setChecked(check);
+		check = !check;
+	}
+	private void readPassword() {
+		EditText user = (EditText) findViewById(R.id.password);
+		user.setText((CharSequence) read(passwordFile));
+	}
 
-       }
+	protected void write(String file, String value) {
+		FileOutputStream write;
+		try {
+			write = openFileOutput(file, Context.MODE_PRIVATE);
+			write.write(value.getBytes());
+			write.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
-    public void buttonClicked(View v){
-        Button button = (Button)v;
-        EditText user = (EditText)findViewById(R.id.username);
-        EditText pass = (EditText)findViewById(R.id.password);
-        error = (TextView)findViewById(R.id.error);
-        String message = "Incorrect \nusername/password";
+	}
 
-        if(!check)
-            writeUsername();
+	private void readUser() {
+		EditText username = (EditText) findViewById(R.id.username);
+		username.setText((CharSequence) read(usernameFile));
+	}
 
-        if(!("" + user.getText()).equals("") && !("" + pass.getText()).equals("")){
-            message = "";
+	public String read(String file) {
+		
+		String value = "";
+		try {
+			FileInputStream input = openFileInput(file);
+			BufferedReader inputRead = new BufferedReader(new InputStreamReader(input));
+			value = inputRead.readLine();
+			return value;
 
-           goToPageActivity();
-        }
-        error.setText(message);
-    }
-    public void goToPageActivity(){
-    	Intent projectList = new Intent(this, ProjectListViewActivity.class);
-        startActivity(projectList);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+		} catch (IOException e) {
+			e.printStackTrace();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+		}
+		return value;
+	}
+
+	public void buttonClicked(View v) {
+		//Button button = (Button) v;
+		EditText user = (EditText) findViewById(R.id.username);
+		EditText pass = (EditText) findViewById(R.id.password);
+		error = (TextView) findViewById(R.id.error);
+		String message = "Incorrect \nusername/password";
+
+		if (!check){
+			write(usernameFile, user.getText() + "");
+			write(passwordFile, pass.getText() + "");
+		}
+
+		if (!("" + user.getText()).equals("")
+				&& !("" + pass.getText()).equals("")) {
+			message = "";
+			goToPageActivity();
+		}
+		error.setText(message);
+	}
+
+	private void goToPageActivity() {
+		Intent projectList = new Intent(this, ChangePasswordActivity.class);
+		startActivity(projectList);
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }
