@@ -66,4 +66,13 @@
         android:clickable="true"
         android:onClick="toggle" />
 
+    <CheckBox
+        android:id="@+id/forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remember"
+        android:layout_below="@+id/remember"
+        android:onClick="changePassword"
+        android:text="@string/changePassword" />
+
 </RelativeLayout>

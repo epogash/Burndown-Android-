@@ -16,6 +16,7 @@
     <string name="title_activity_project_list_view">ProjectListViewActivity</string>
     <string name="remember">Remember Me</string>
     <string name="change">Change</string>
+    <string name="changePassword">Change Password</string>
     <string name="confirmPass">Confirm Password</string>
     <string name="newPass">New Password</string>
     <string name="currentPass">Current Password</string>
