@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 	private String passwordFile = "PASS.txt";
 	private String usernameFile = "USRname.txt";
 	
+	
 	public String getUsernameFile() {
 		return usernameFile;
 	}
