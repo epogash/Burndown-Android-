@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 public class ChangePasswordActivity extends Activity {
 	private String passwordFile = "PASS.txt";
-	private String usernameFile = "USRname.txt";
+	private String usernameFile = "staticUser.txt";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

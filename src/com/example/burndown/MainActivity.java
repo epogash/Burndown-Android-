@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	private boolean check = false;
 	private String passwordFile = "PASS.txt";
 	private String usernameFile = "USRname.txt";
+	private String staticUser = "staticUser.txt";
 	
 	
 	public String getUsernameFile() {
@@ -51,8 +52,7 @@ public class MainActivity extends Activity {
 		// startActivity(projectList);
 
 	}
-	@SuppressWarnings("unused")
-	private void toggle(View v) {
+	public void toggle(View v) {
 		RadioButton remember = (RadioButton) v;
 		remember.setChecked(check);
 		check = !check;
@@ -100,22 +100,31 @@ public class MainActivity extends Activity {
 		EditText pass = (EditText) findViewById(R.id.password);
 		error = (TextView) findViewById(R.id.error);
 		String message = "Incorrect \nusername/password";
-
 		if (!check){
 			write(usernameFile, user.getText() + "");
 			//write(passwordFile, pass.getText() + "");
 		}
-		
-		if (!("" + user.getText()).equals("") && !("" + pass.getText()).equals("")) {
+		if(user.getText().toString().equals("admin") && pass.getText().toString().equals("MindtreeInterns")){// this will clear log in data in phone
+			write(staticUser, "");
+			write(usernameFile, "");
+			write(passwordFile, "password");
+			message = "Reset Completed";
+		}
+		else if( user.getText().toString().equals(read(staticUser)) && pass.getText().toString().equals(read(passwordFile))&& !pass.getText().toString().equals("") && !(user.getText().toString().equals("admin"))){
+			message = "Next Page";
+		}
+		else if (!("" + user.getText()).equals("") && !("" + pass.getText()).equals("")) { // checks to see if there is a username and password
 			message = "";
-			if (read(passwordFile).equals(pass.getText().toString())) {
-				//goToPageActivity();
+			
+			if(pass.getText().toString().equals("password") && read(passwordFile).equals("password")){// first time users goes through here and creates an account
+				write(staticUser, user.getText() + "");
+				message = "Account Created";
 			}
 			else{
-				message = "Incorrect \nusername/password";
+				message = "Incorrect \nusername/password\nPlease login as\n" + read(staticUser);
 			}
-			
-		}
+		}	
+		
 		error.setText(message);
 	}
 	public void changePassword(View v){
