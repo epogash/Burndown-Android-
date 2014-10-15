@@ -21,5 +21,6 @@
     <string name="newPass">New Password</string>
     <string name="currentPass">Current Password</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="title_activity_project">Project</string>
 
 </resources>

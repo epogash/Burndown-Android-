@@ -38,6 +38,10 @@
             android:name=".ChangePasswordActivity"
             android:label="@string/title_activity_change_password" >
         </activity>
+        <activity
+            android:name=".Project"
+            android:label="@string/title_activity_project" >
+        </activity>
     </application>
 
 </manifest>
