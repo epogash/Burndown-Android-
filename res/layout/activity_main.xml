@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:clickable="true"
-    android:background="@android:color/darker_gray">
+    android:background="@drawable/cap">
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:text="@string/login"
         android:onClick="buttonClicked"
         style="@android:style/TextAppearance.Holo.DialogWindowTitle"
-        android:background="@android:color/holo_purple" />
+        android:theme="@android:style/Theme.Light"/>
 
     <TextView
         android:layout_width="wrap_content"

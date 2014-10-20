@@ -22,5 +22,9 @@
     <string name="currentPass">Current Password</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
     <string name="title_activity_project">Project</string>
+    <string name="new_screen">new_screen</string>
+    <string name="back_login">Back to login</string>
+    <string name="temp">This page will display several options for the user to select from (Charts, stories, etc)</string>
+    
 
 </resources>

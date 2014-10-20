@@ -53,7 +53,7 @@ public class Data extends AsyncTask<Void, Void, Void>
 	                           }
 
 	                   // Execute HTTP Post Request
-	                 /* try {
+	                  /*try {
 	                                  HttpResponse response = httpclient.execute(httppost);
 	                                  BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 	                                  String json = reader.readLine();

@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +16,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 
 public class MainActivity extends Activity {
 	private TextView error;
@@ -24,6 +30,9 @@ public class MainActivity extends Activity {
 	private String passwordFile = "PASS.txt";
 	private String usernameFile = "USRname.txt";
 	private String staticUser = "staticUser.txt";
+	private ListView mainListView ;  
+	private ArrayAdapter<String> listAdapter ;  
+	
 	
 	
 	public String getUsernameFile() {
@@ -40,6 +49,8 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
 		readUser();
 	}
 
@@ -93,8 +104,16 @@ public class MainActivity extends Activity {
 		}
 		return value;
 	}
+	
+	//Method used to call a new screen (projects.xml) whenever the "login" button is pressed 
+	//on the login screen -- this is temporary, main for testing.
+	public void back_to_login(View view)
+	{
+		setContentView(R.layout.activity_main);
+	}
 
-	public void buttonClicked(View v) {
+	public void buttonClicked(View view) {
+		
 		//Button button = (Button) v;
 		EditText user = (EditText) findViewById(R.id.username);
 		EditText pass = (EditText) findViewById(R.id.password);
@@ -126,6 +145,33 @@ public class MainActivity extends Activity {
 		}	
 		
 		error.setText(message);
+		
+		setContentView(R.layout.projects);
+		// Find the ListView resource.   
+	    mainListView = (ListView) findViewById( R.id.mainListView );
+	    
+	    // Create and populate a List of planet names.  
+	    String[] project_array = new String[] { "TestProject", "Project2", "Project3", "Project4"};    
+	    ArrayList<String> projects = new ArrayList<String>();  
+	    projects.addAll( Arrays.asList(project_array) );  
+	    
+	    
+	    
+	    // Create ArrayAdapter using the planet list.  
+	    listAdapter = new ArrayAdapter<String>(this, R.layout.row, projects);  
+	    
+	    listAdapter.add( "Extra" );  
+	 // Set the ArrayAdapter as the ListView's adapter. 
+	 //THIS LINE OF CODE IS CAUSING THE APP TO CRASH---------------
+	    mainListView.setAdapter( listAdapter );
+		
+	   
+		
+		
+		//Calling HTTP from data class
+		Data data = new Data();
+		data.printResponse(view);
+		
 	}
 	public void changePassword(View v){
 		CheckBox change = (CheckBox)v;
