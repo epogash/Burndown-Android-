@@ -41,10 +41,10 @@ public class Data extends AsyncTask<Void, Void, Void>
 	              
 	                  // Add your data
 	                  List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-	                  nameValuePairs.add(new BasicNameValuePair("refresh_token", "tf9i!IAAAAHYVmQaz0WdiucVhbtyL8J3deIzvco9vMlSBmNZzzhjhsQAAAAGTil9Rphm6-6yVgJwX90SoZFK23Vy5u3nZ6KntnQbtEUNdw3Qbv2eLfswT2MvMEfyJd5wgqOKjlclYasv4qC9byywuOjL6cFJ1Xr_DCsvnqXREAtds-KzQAYTLRyL-EYOXX-5aUCepBU9sXQBqDovCq2tEQgqCbhIa7zAwSOnud32FggtcgejUL9QD6GFocNR0MkHkBCv0V6jJOl7aUo7RQb4BUquocKzixsOo03gJxQ"));
+	                  nameValuePairs.add(new BasicNameValuePair("refresh_token", "tf9i!IAAAAD2RDmLDGwmAzulxkVPWdiqvV8W5eIuPqeY-5hW_nUzmsQAAAAEksbeRdjdratVefTpYU_D2IzvfcFQycn0JJZ1Y8rBZV_xud3D_5x3R5LutJou62uB6T4PFyep0DtzslnOVx688z9NP5Ciz8fq08xvTewo4bfmgIzL7q1dbOXtMfho1OqHigc_-I3bJK80udZ2ui3HDpFqSO4OyJMCGv2ikTVs76Gwn01TMWdm-sKBWQBmMmoJGbiQvimQpSQnJ3KJ2Mke8A712k8n05kPDwL09ahjqjA"));
 	                  nameValuePairs.add(new BasicNameValuePair("grant_type", "refresh_token"));
-	                  nameValuePairs.add(new BasicNameValuePair("client_id", "client_m4xy6r47"));
-	                  nameValuePairs.add(new BasicNameValuePair("client_secret", "j9xrqqp5vthbu56okx27"));
+	                  nameValuePairs.add(new BasicNameValuePair("client_id", "client_2xofp4kh"));
+	                  nameValuePairs.add(new BasicNameValuePair("client_secret", "s9cw5xputt86mgggj8d8"));
 	                 try {
 	                                  httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	                           } catch (UnsupportedEncodingException e) {
