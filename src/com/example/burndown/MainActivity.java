@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
 	private ListView mainListView ;  
 	private ArrayAdapter<String> listAdapter ; 
 	ArrayList<String> project_list;
+	AsyncTask<Void, Void, Void> asyncTask;
 	
 	
 	
@@ -78,12 +79,118 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		project_list = new ArrayList<String>();
 		
 		readUser();
+		
+		AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+            
+            @Override
+            protected Void doInBackground(Void... params) {
+                  String accessToken = "";
+                  HttpClient httpclient = new DefaultHttpClient();
+                  HttpPost httppost = new HttpPost("https://www6.v1host.com/MindtreeLTD/oauth.v1/token");
+                  httppost.setHeader("Host",
+                        "www6.v1host.com");
+                  httppost.setHeader("Content-Type",
+                        "application/x-www-form-urlencoded");
+                  
+                      // Add your data
+                      List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+                      nameValuePairs.add(new BasicNameValuePair("refresh_token", "tf9i!IAAAAHYVmQaz0WdiucVhbtyL8J3deIzvco9vMlSBmNZzzhjhsQAAAAGTil9Rphm6-6yVgJwX90SoZFK23Vy5u3nZ6KntnQbtEUNdw3Qbv2eLfswT2MvMEfyJd5wgqOKjlclYasv4qC9byywuOjL6cFJ1Xr_DCsvnqXREAtds-KzQAYTLRyL-EYOXX-5aUCepBU9sXQBqDovCq2tEQgqCbhIa7zAwSOnud32FggtcgejUL9QD6GFocNR0MkHkBCv0V6jJOl7aUo7RQb4BUquocKzixsOo03gJxQ"));
+                      nameValuePairs.add(new BasicNameValuePair("grant_type", "refresh_token"));
+                      nameValuePairs.add(new BasicNameValuePair("client_id", "client_m4xy6r47"));
+                      nameValuePairs.add(new BasicNameValuePair("client_secret", "j9xrqqp5vthbu56okx27"));
+                      try {
+                                      httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                               } catch (UnsupportedEncodingException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               }
+
+                      // Execute HTTP Post Request
+                       try {
+                                      HttpResponse response = httpclient.execute(httppost);
+                                      BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+                                      String json = reader.readLine();
+                                      JSONTokener tokener = new JSONTokener(json);
+                                      JSONObject finalResult = new JSONObject(tokener);
+                                      accessToken = finalResult.getString("access_token");
+                               } catch (ClientProtocolException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               } catch (IOException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               } catch (JSONException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               }
+                      
+                      HttpGet httpget = new HttpGet("https://www6.v1host.com/MindtreeLTD/rest-1.oauth.v1/Data/Scope?sel=Name");
+                         httpget.setHeader("Host",
+                               "www6.v1host.com");
+                         httpget.setHeader("Authorization",
+                               "Bearer " + accessToken);
+                         try {
+                                      HttpResponse response = httpclient.execute(httpget);
+                                      HttpEntity httpEntity = response.getEntity();
+                              String xml = EntityUtils.toString(httpEntity);
+                              System.out.println(xml);
+                              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                              DocumentBuilder db;
+                                      db = dbf.newDocumentBuilder();
+                                      InputSource inStream = new InputSource();
+                                inStream.setCharacterStream(new StringReader(xml));
+                                org.w3c.dom.Document doc = db.parse(inStream);  
+                                
+                              String projectName = "";
+                              project_list = new ArrayList<String>();
+                              NodeList nl = doc.getElementsByTagName("Attribute");
+                              for(int i = 0; i < nl.getLength(); i++) {
+                                   org.w3c.dom.Element nameElement = (org.w3c.dom.Element) nl.item(i);
+                                   projectName = nameElement.getFirstChild().getNodeValue();
+                                   project_list.add(projectName);
+                              }
+                              for(int i = 0; i <project_list.size(); i++){
+                                System.out.println(project_list.get(i));
+                              }
+//                              Handler mainHandler = new Handler(Looper.getMainLooper());
+//                              mainHandler.post(new Runnable() {
+
+//                                  @Override
+//                                  public void run() {
+//                                     displayProjects();
+//                                  }
+                             // });   
+                               } catch (ClientProtocolException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               } catch (IOException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               } catch (SAXException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               } catch (ParserConfigurationException e) {
+                                      // TODO Auto-generated catch block
+                                      e.printStackTrace();
+                               }
+                        
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                  System.out.println("SUCCESS");
+                // Notifies UI when the task is done
+            }
+        }.execute();
+
          
          
 	}
+	 
 
 	@SuppressWarnings("unused")
 	private void refresh() {
@@ -177,144 +284,33 @@ public class MainActivity extends Activity {
 		
 		error.setText(message);
 		
+		   //Handler mainHandler = new Handler(Looper.getMainLooper());
+           //mainHandler.post(new Runnable() {
+
+               
+              // public void run() {
+                  displayProjects();
+      //}
+    // });
 		
 		
 		//-----------------------------------------------------------------------------
-		 AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
-			 
-			
-             
-             @Override
-             protected Void doInBackground(Void... params) 
-             {
-                   String accessToken = "";
-                   HttpClient httpclient = new DefaultHttpClient();
-                   HttpPost httppost = new HttpPost("https://www6.v1host.com/MindtreeLTD/oauth.v1/token");
-                   httppost.setHeader("Host",
-                         "www6.v1host.com");
-                   httppost.setHeader("Content-Type",
-                         "application/x-www-form-urlencoded");
-             
-                   
-                       // Add your data
-                       List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-                       nameValuePairs.add(new BasicNameValuePair("refresh_token", "tf9i!IAAAAHYVmQaz0WdiucVhbtyL8J3deIzvco9vMlSBmNZzzhjhsQAAAAGTil9Rphm6-6yVgJwX90SoZFK23Vy5u3nZ6KntnQbtEUNdw3Qbv2eLfswT2MvMEfyJd5wgqOKjlclYasv4qC9byywuOjL6cFJ1Xr_DCsvnqXREAtds-KzQAYTLRyL-EYOXX-5aUCepBU9sXQBqDovCq2tEQgqCbhIa7zAwSOnud32FggtcgejUL9QD6GFocNR0MkHkBCv0V6jJOl7aUo7RQb4BUquocKzixsOo03gJxQ"));
-                       nameValuePairs.add(new BasicNameValuePair("grant_type", "refresh_token"));
-                       nameValuePairs.add(new BasicNameValuePair("client_id", "client_m4xy6r47"));
-                       nameValuePairs.add(new BasicNameValuePair("client_secret", "j9xrqqp5vthbu56okx27"));
-                       try {
-                                       httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                                } catch (UnsupportedEncodingException e) {
-                                       // TODO Auto-generated catch block
-                                       e.printStackTrace();
-                                }
-
-                       // Execute HTTP Post Request
-                       try {
-                                       HttpResponse response = httpclient.execute(httppost);
-                                       BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-                                       String json = reader.readLine();
-                                       JSONTokener tokener = new JSONTokener(json);
-                                       JSONObject finalResult = new JSONObject(tokener);
-                                       accessToken = finalResult.getString("access_token");
-                                } catch (ClientProtocolException e) {
-                                       // TODO Auto-generated catch block
-                                       e.printStackTrace();
-                                } catch (IOException e) {
-                                       // TODO Auto-generated catch block
-                                       e.printStackTrace();
-                                } catch (JSONException e) {
-                                       // TODO Auto-generated catch block
-                                       e.printStackTrace();
-                                }
-                       
-                       HttpGet httpget = new HttpGet("https://www6.v1host.com/MindtreeLTD/rest-1.oauth.v1/Data/Scope?sel=Name");
-                          httpget.setHeader("Host",
-                                "www6.v1host.com");
-                          httpget.setHeader("Authorization",
-                                "Bearer " + accessToken);
-                          try {
-                                       HttpResponse response = httpclient.execute(httpget);
-                                       HttpEntity httpEntity = response.getEntity();
-                               String xml = EntityUtils.toString(httpEntity);
-                               System.out.println(xml);
-                               DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                               DocumentBuilder db;
-                                       db = dbf.newDocumentBuilder();
-                                       InputSource inStream = new InputSource();
-                                 inStream.setCharacterStream(new StringReader(xml));
-                                 org.w3c.dom.Document doc = db.parse(inStream);  
-                                 
-                               String projectName = "";
-                               ArrayList<String> project_list = new ArrayList<String>();  
-                               NodeList nl = doc.getElementsByTagName("Attribute");
-                               for(int i = 0; i < nl.getLength(); i++) 
-                               {
-                                   org.w3c.dom.Element nameElement = (org.w3c.dom.Element) nl.item(i);
-                                   projectName = nameElement.getFirstChild().getNodeValue();
-                                   project_list.add(projectName);
-                               }
-                               
-                               for(int i = 0; i <project_list.size(); i++){
-                                 System.out.println(project_list.get(i));
-                               }
-                               Handler mainHandler = new Handler(Looper.getMainLooper());
-                               mainHandler.post(new Runnable() {
-
-                                   @Override
-                                   public void run() {
-                                      displayProjects();
-                          }
-                         });
-                               
-                              } 
-                          		
-                          		catch (ClientProtocolException e) {
-                                      
-                                    e.printStackTrace();
-                                } 
-                          		catch (IOException e) {
-                                       
-                                  e.printStackTrace();
-                                } 
-                          		catch (SAXException e) {
-                                       
-                                    e.printStackTrace();
-                                } 
-                          		catch (ParserConfigurationException e) {
-                                      
-                                       e.printStackTrace();
-                                }
-                          
-                return null;
-             }
-
-             @Override
-             protected void onPostExecute(Void aVoid) {
-                   System.out.println("SUCCESS");
-                 // Notifies UI when the task is done
-             }
-             
-             public void displayProjects() {
-            	 setContentView(R.layout.projects);
-            	 mainListView = (ListView) findViewById( R.id.mainListView );
-                 //arraylist Append
-            	 listAdapter = new ArrayAdapter<String>(this, R.layout.row, project_list);  
-                 mainListView.setAdapter(listAdapter);
-             }
-            
-             
-             public void printResponse(View view) {
-                        
-             }
-         }.execute();
+		 
      
-         
-         
-     
-    
 	}
 
+	 public void displayProjects() {
+      	 setContentView(R.layout.projects);
+      	 mainListView = (ListView) findViewById( R.id.mainListView );
+           //arraylist Append
+      	 listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, project_list);  
+           mainListView.setAdapter(listAdapter);
+       }
+   
+       public void printResponse(View view) {
+           
+       }
+       
 		//------------------------------------------------------------------------------
 		// Find the ListView resource.   
 	    /*mainListView = (ListView) findViewById( R.id.mainListView );
