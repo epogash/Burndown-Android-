@@ -38,13 +38,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.DocumentsContract.Document;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -58,137 +62,18 @@ public class MainActivity extends Activity {
 	private String passwordFile = "PASS.txt";
 	private String usernameFile = "USRname.txt";
 	private String staticUser = "staticUser.txt";
-	private ListView mainListView ;  
-	private ArrayAdapter<String> listAdapter ; 
+	HashPassword hashPass = new HashPassword();
 	ArrayList<String> project_list;
 	AsyncTask<Void, Void, Void> asyncTask;
 	
-	
-	
-	public String getUsernameFile() {
-		return usernameFile;
-	}
-
-	public String getPasswordFile() {
-		return passwordFile;
-	}
-
-	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setTitle("Burn Down");
 		setContentView(R.layout.activity_main);
 		project_list = new ArrayList<String>();
 		
 		readUser();
-		
-		AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
-            
-            @Override
-            protected Void doInBackground(Void... params) {
-                  String accessToken = "";
-                  HttpClient httpclient = new DefaultHttpClient();
-                  HttpPost httppost = new HttpPost("https://www6.v1host.com/MindtreeLTD/oauth.v1/token");
-                  httppost.setHeader("Host",
-                        "www6.v1host.com");
-                  httppost.setHeader("Content-Type",
-                        "application/x-www-form-urlencoded");
-                  
-                      // Add your data
-                      List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-                      nameValuePairs.add(new BasicNameValuePair("refresh_token", "tf9i!IAAAAHYVmQaz0WdiucVhbtyL8J3deIzvco9vMlSBmNZzzhjhsQAAAAGTil9Rphm6-6yVgJwX90SoZFK23Vy5u3nZ6KntnQbtEUNdw3Qbv2eLfswT2MvMEfyJd5wgqOKjlclYasv4qC9byywuOjL6cFJ1Xr_DCsvnqXREAtds-KzQAYTLRyL-EYOXX-5aUCepBU9sXQBqDovCq2tEQgqCbhIa7zAwSOnud32FggtcgejUL9QD6GFocNR0MkHkBCv0V6jJOl7aUo7RQb4BUquocKzixsOo03gJxQ"));
-                      nameValuePairs.add(new BasicNameValuePair("grant_type", "refresh_token"));
-                      nameValuePairs.add(new BasicNameValuePair("client_id", "client_m4xy6r47"));
-                      nameValuePairs.add(new BasicNameValuePair("client_secret", "j9xrqqp5vthbu56okx27"));
-                      try {
-                                      httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                               } catch (UnsupportedEncodingException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               }
-
-                      // Execute HTTP Post Request
-                       try {
-                                      HttpResponse response = httpclient.execute(httppost);
-                                      BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-                                      String json = reader.readLine();
-                                      JSONTokener tokener = new JSONTokener(json);
-                                      JSONObject finalResult = new JSONObject(tokener);
-                                      accessToken = finalResult.getString("access_token");
-                               } catch (ClientProtocolException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               } catch (IOException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               } catch (JSONException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               }
-                      
-                      HttpGet httpget = new HttpGet("https://www6.v1host.com/MindtreeLTD/rest-1.oauth.v1/Data/Scope?sel=Name");
-                         httpget.setHeader("Host",
-                               "www6.v1host.com");
-                         httpget.setHeader("Authorization",
-                               "Bearer " + accessToken);
-                         try {
-                                      HttpResponse response = httpclient.execute(httpget);
-                                      HttpEntity httpEntity = response.getEntity();
-                              String xml = EntityUtils.toString(httpEntity);
-                              System.out.println(xml);
-                              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                              DocumentBuilder db;
-                                      db = dbf.newDocumentBuilder();
-                                      InputSource inStream = new InputSource();
-                                inStream.setCharacterStream(new StringReader(xml));
-                                org.w3c.dom.Document doc = db.parse(inStream);  
-                                
-                              String projectName = "";
-                              project_list = new ArrayList<String>();
-                              NodeList nl = doc.getElementsByTagName("Attribute");
-                              for(int i = 0; i < nl.getLength(); i++) {
-                                   org.w3c.dom.Element nameElement = (org.w3c.dom.Element) nl.item(i);
-                                   projectName = nameElement.getFirstChild().getNodeValue();
-                                   project_list.add(projectName);
-                              }
-                              for(int i = 0; i <project_list.size(); i++){
-                                System.out.println(project_list.get(i));
-                              }
-//                              Handler mainHandler = new Handler(Looper.getMainLooper());
-//                              mainHandler.post(new Runnable() {
-
-//                                  @Override
-//                                  public void run() {
-//                                     displayProjects();
-//                                  }
-                             // });   
-                               } catch (ClientProtocolException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               } catch (IOException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               } catch (SAXException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               } catch (ParserConfigurationException e) {
-                                      // TODO Auto-generated catch block
-                                      e.printStackTrace();
-                               }
-                        
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                  System.out.println("SUCCESS");
-                // Notifies UI when the task is done
-            }
-        }.execute();
-
-         
-         
 	}
 	 
 
@@ -261,95 +146,44 @@ public class MainActivity extends Activity {
 			write(usernameFile, user.getText() + "");
 			//write(passwordFile, pass.getText() + "");
 		}
-		if(user.getText().toString().equals("admin") && pass.getText().toString().equals("MindtreeInterns")){// this will clear log in data in phone
-			write(staticUser, "");
-			write(usernameFile, "");
-			write(passwordFile, "password");
-			message = "Reset Completed";
-		}
-		else if( user.getText().toString().equals(read(staticUser)) && pass.getText().toString().equals(read(passwordFile))&& !pass.getText().toString().equals("") && !(user.getText().toString().equals("admin"))){
-			message = "Next Page";
-		}
-		else if (!("" + user.getText()).equals("") && !("" + pass.getText()).equals("")) { // checks to see if there is a username and password
-			message = "";
-			
-			if(pass.getText().toString().equals("password") && read(passwordFile).equals("password")){// first time users goes through here and creates an account
+		if((read(staticUser)+"").equals("")){
+			if(!("" + user.getText()).equals("")){
 				write(staticUser, user.getText() + "");
+				write(passwordFile, hashPass.hash("password"));
 				message = "Account Created";
 			}
 			else{
-				message = "Incorrect \nusername/password\nPlease login as\n" + read(staticUser);
+				message = "Please create an account by entering a valid Username and password will be 'password'";
 			}
-		}	
+		}
+		else if(user.getText().toString().equalsIgnoreCase("admin") && pass.getText().toString().equals("MindtreeInterns")){// this will clear log in data in phone
+			write(staticUser, "");
+			write(usernameFile, "");
+			write(passwordFile, hashPass.hash("password"));
+			message = "Reset Completed";
+		}
+		else if( user.getText().toString().equalsIgnoreCase(read(staticUser)) && hashPass.hash(pass.getText().toString()).equals(read(passwordFile))&& !pass.getText().toString().equals("") && !(user.getText().toString().equals("admin"))){
+			displayProjects();
+			message = "";
+		}
 		
 		error.setText(message);
 		
-		   //Handler mainHandler = new Handler(Looper.getMainLooper());
-           //mainHandler.post(new Runnable() {
-
-               
-              // public void run() {
-                  displayProjects();
-      //}
-    // });
-		
-		
-		//-----------------------------------------------------------------------------
-		 
-     
 	}
-
 	 public void displayProjects() {
-      	 setContentView(R.layout.projects);
-      	 mainListView = (ListView) findViewById( R.id.mainListView );
-           //arraylist Append
-      	 listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, project_list);  
-           mainListView.setAdapter(listAdapter);
+		Intent changePassword = new Intent(this, Projects.class);
+		startActivity(changePassword);
        }
    
        public void printResponse(View view) {
            
        }
        
-		//------------------------------------------------------------------------------
-		// Find the ListView resource.   
-	    /*mainListView = (ListView) findViewById( R.id.mainListView );
-	    
-	    // Create and populate a List of planet names.  
-	    String[] project_array = new String[] { "TestProject", "Project2", "Project3", "Project4"};    
-	    ArrayList<String> projects = new ArrayList<String>();  
-	    projects.addAll( Arrays.asList(project_array) );  */
-	    
-	    
-	    
-	    // Create ArrayAdapter using the planet list.  
-	    //listAdapter = new ArrayAdapter<String>(this, R.layout.row, projects);  
-	    
-	    //listAdapter.add( "Extra" );  
-	 // Set the ArrayAdapter as the ListView's adapter. 
-	 
-	    //mainListView.setAdapter( listAdapter );
-		
-	   
-		
-		//Calling HTTP from data class
-		//Data data = new Data();
-		//data.printResponse(view);
-		
-
-	
-	
 	public void changePassword(View v){
 		CheckBox change = (CheckBox)v;
 		change.setChecked(false);
 		Intent changePassword = new Intent(this, ChangePasswordActivity.class);
 		startActivity(changePassword);
-	}
-	@SuppressWarnings("unused")
-	private void goToPageActivity() {
-		Intent changePassword = new Intent(this, ChangePasswordActivity.class);
-		startActivity(changePassword);
-
 	}
 
 	@Override

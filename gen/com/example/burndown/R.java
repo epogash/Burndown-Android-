@@ -22,49 +22,69 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int cap=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int logo=0x7f020002;
-        public static final int mt=0x7f020003;
-        public static final int mt_icon=0x7f020004;
-        public static final int round_edge=0x7f020005;
+        public static final int black_background=0x7f020000;
+        public static final int cap=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int logo=0x7f020003;
+        public static final int mindtree_logo=0x7f020004;
+        public static final int mt=0x7f020005;
+        public static final int mt_icon=0x7f020006;
+        public static final int round_edge=0x7f020007;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f08000b;
-        public static final int action_settings=0x7f080011;
-        public static final int button1=0x7f08000f;
+        public static final int ListViewSprint=0x7f080011;
+        public static final int RelativeLayout1=0x7f080012;
+        public static final int action_settings=0x7f080015;
         public static final int change=0x7f080001;
         public static final int confirmPass=0x7f080002;
         public static final int currentPass=0x7f080004;
-        public static final int error=0x7f080008;
-        public static final int forget=0x7f08000a;
-        public static final int login=0x7f080007;
+        public static final int error=0x7f080009;
+        public static final int forget=0x7f08000b;
+        public static final int graph1=0x7f080005;
+        public static final int inputSearchBar=0x7f080013;
+        public static final int listView1=0x7f08000c;
+        public static final int listView2=0x7f08000d;
+        public static final int login=0x7f080008;
         public static final int mainListView=0x7f08000e;
         public static final int newPass=0x7f080003;
-        public static final int password=0x7f080006;
-        public static final int remember=0x7f080009;
-        public static final int rowTextView=0x7f080010;
-        public static final int textView1=0x7f08000c;
-        public static final int username=0x7f080005;
+        public static final int password=0x7f080007;
+        public static final int remember=0x7f08000a;
+        public static final int rowTextView=0x7f080014;
+        public static final int textView1=0x7f080010;
+        public static final int username=0x7f080006;
         public static final int welcomeMessage=0x7f080000;
-        public static final int welcome_message=0x7f08000d;
+        public static final int welcomeMessageProject=0x7f08000f;
     }
     public static final class layout {
-        public static final int activity_change_password=0x7f030000;
-        public static final int activity_choices=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int data_icons=0x7f030003;
-        public static final int projects=0x7f030004;
-        public static final int row=0x7f030005;
+        public static final int activity_burn_down=0x7f030000;
+        public static final int activity_change_password=0x7f030001;
+        public static final int activity_choices=0x7f030002;
+        public static final int activity_graph=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_project_info=0x7f030005;
+        public static final int activity_project_stories=0x7f030006;
+        public static final int activity_projects_test=0x7f030007;
+        public static final int activity_sprint_burndown=0x7f030008;
+        public static final int activity_sprints=0x7f030009;
+        public static final int data_icons=0x7f03000a;
+        public static final int row=0x7f03000b;
     }
     public static final class menu {
-        public static final int change_password=0x7f070000;
-        public static final int choices=0x7f070001;
-        public static final int main=0x7f070002;
-        public static final int parse_bugzilla=0x7f070003;
-        public static final int project=0x7f070004;
-        public static final int project_list=0x7f070005;
-        public static final int project_list_view=0x7f070006;
+        public static final int burn_down=0x7f070000;
+        public static final int change_password=0x7f070001;
+        public static final int choices=0x7f070002;
+        public static final int graph=0x7f070003;
+        public static final int main=0x7f070004;
+        public static final int parse_bugzilla=0x7f070005;
+        public static final int project=0x7f070006;
+        public static final int project_info=0x7f070007;
+        public static final int project_list=0x7f070008;
+        public static final int project_list_view=0x7f070009;
+        public static final int project_stories=0x7f07000a;
+        public static final int project_test=0x7f07000b;
+        public static final int projects_test=0x7f07000c;
+        public static final int sprint_burndown=0x7f07000d;
+        public static final int sprints=0x7f07000e;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -80,15 +100,24 @@ public final class R {
         public static final int newPass=0x7f050011;
         public static final int new_screen=0x7f050015;
         public static final int password=0x7f050003;
+        public static final int refresh=0x7f05001a;
         public static final int remember=0x7f05000d;
         public static final int stories=0x7f050005;
         public static final int temp=0x7f050017;
         public static final int time=0x7f050006;
+        public static final int title_activity_burn_down=0x7f05001d;
         public static final int title_activity_change_password=0x7f050013;
         public static final int title_activity_choices=0x7f050009;
+        public static final int title_activity_graph=0x7f05001e;
         public static final int title_activity_parse_bugzilla=0x7f05000b;
         public static final int title_activity_project=0x7f050014;
+        public static final int title_activity_project_info=0x7f05001b;
         public static final int title_activity_project_list_view=0x7f05000c;
+        public static final int title_activity_project_stories=0x7f05001c;
+        public static final int title_activity_project_test=0x7f050018;
+        public static final int title_activity_projects_test=0x7f050019;
+        public static final int title_activity_sprint_burndown=0x7f05001f;
+        public static final int title_activity_sprints=0x7f050020;
         public static final int username=0x7f050002;
         public static final int velocity=0x7f050007;
     }

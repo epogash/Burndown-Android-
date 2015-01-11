@@ -1,23 +1,22 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clickable="true"
-    android:background="@drawable/cap">
+    android:background="@drawable/black_background"
+    android:clickable="true" >
 
     <EditText
+        android:id="@+id/username"
+        style="@android:style/Animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/username"
         android:layout_above="@+id/password"
         android:layout_centerHorizontal="true"
-        android:hint="@string/username"
+        android:ems="10"
         android:enabled="true"
-        android:focusable="true"
         android:focusableInTouchMode="true"
-        style="@android:style/Animation" />
+        android:hint="@string/username"
+        android:textColor="@android:color/white"
+        android:inputType="textPersonName" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -27,6 +26,7 @@
         android:id="@+id/password"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
         android:hint="@string/password" />
 
     <Button
@@ -42,29 +42,33 @@
         android:theme="@android:style/Theme.Light"/>
 
     <TextView
+        android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/error"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
+        android:layout_alignEnd="@+id/username"
         android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username"
+        android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/username"
-        android:layout_alignEnd="@+id/username" />
+        android:layout_alignStart="@+id/username"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/mindtree_logo"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
 
     <RadioButton
+        android:id="@+id/remember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remember"
-        android:id="@+id/remember"
-        android:layout_below="@+id/password"
-        android:enabled="true"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
+        android:layout_below="@+id/password"
         android:checked="true"
         android:clickable="true"
-        android:onClick="toggle" />
+        android:enabled="true"
+        android:onClick="toggle"
+        android:text="@string/remember"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
     <CheckBox
         android:id="@+id/forget"
@@ -73,6 +77,8 @@
         android:layout_alignLeft="@+id/remember"
         android:layout_below="@+id/remember"
         android:onClick="changePassword"
-        android:text="@string/changePassword" />
+        android:text="@string/changePassword"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
 </RelativeLayout>

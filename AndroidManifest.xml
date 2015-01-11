@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -42,7 +42,40 @@
             android:name=".Project"
             android:label="@string/title_activity_project" >
         </activity>
+        <activity
+            android:name=".ProjectTest"
+            android:label="@string/title_activity_project_test" >
+        </activity>
+        <activity
+            android:name=".Projects"
+            android:label="@string/title_activity_projects_test" >
+        </activity>
+        <activity
+            android:name=".ProjectInfoActivity"
+            android:label="@string/title_activity_project_info" >
+        </activity>
+        <activity
+            android:name=".ProjectStoriesActivity"
+            android:label="@string/title_activity_project_stories" >
+        </activity>
+        <activity
+            android:name=".BurnDown"
+            android:label="@string/title_activity_burn_down" >
+        </activity>
+        <activity
+            android:name=".GraphActivity"
+            android:label="@string/title_activity_graph" >
+        </activity>
+        <activity
+            android:name=".SprintBurndownActivity"
+            android:label="@string/title_activity_sprint_burndown" >
+        </activity>
+        <activity
+            android:name=".SprintsActivity"
+            android:label="@string/title_activity_sprints" >
+        </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" /> 
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

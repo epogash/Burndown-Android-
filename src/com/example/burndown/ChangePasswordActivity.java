@@ -19,10 +19,12 @@ import android.widget.TextView;
 public class ChangePasswordActivity extends Activity {
 	private String passwordFile = "PASS.txt";
 	private String usernameFile = "staticUser.txt";
-
+	HashPassword hashPass = new HashPassword();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setTitle("Change Password");
 		setContentView(R.layout.activity_change_password);
 		TextView message = (TextView) findViewById(R.id.welcomeMessage);
 
@@ -82,14 +84,32 @@ public class ChangePasswordActivity extends Activity {
 		EditText currentPass = (EditText) findViewById(R.id.currentPass);
 		EditText newPass = (EditText) findViewById(R.id.newPass);
 		EditText confirmPass = (EditText) findViewById(R.id.confirmPass);
+		TextView message = (TextView) findViewById(R.id.welcomeMessage);
+		String user = read(usernameFile);
+		
 		//super.onBackPressed();
 		String password = read(passwordFile);
 		//write(passwordFile, newPass.getText().toString());
-		if(password.equals(currentPass.getText().toString())){
-			if(newPass.getText().toString().equals(confirmPass.getText().toString()) && !confirmPass.getText().toString().equals("")){
-				super.onBackPressed();
-				write(passwordFile, newPass.getText().toString());
+		if(password.equals(hashPass.hash(currentPass.getText().toString()))){
+			if(newPass.getText().toString().equals(confirmPass.getText().toString()) && !confirmPass.getText().toString().equals("") ){
+				if(confirmPass.getText().toString().length() > 5){
+					write(passwordFile, hashPass.hash(newPass.getText().toString()));
+					super.onBackPressed();
+				}
+				else{
+					System.out.println("\n\n\nNew Password must be \nat least 6 characters long");
+					message.setText("Hello, " + user + "\n\n\nNew Password must be \nat least 6 characters long");
+				}
 			}
+			
+			else{
+				System.out.println("\n\n\nNew Password and Confirm Password\nMust be the same");
+				message.setText("Hello, " + user + "\n\n\nNew Password and Confirm Password\nMust be the same");
+				
+			}
+		}
+		else{
+			message.setText("Hello, " + user + "\n\n\nPlease make sure you are using all fields");
 		}
 
 	}

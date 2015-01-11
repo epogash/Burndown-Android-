@@ -25,6 +25,14 @@
     <string name="new_screen">new_screen</string>
     <string name="back_login">Back to login</string>
     <string name="temp">This page will display several options for the user to select from (Charts, stories, etc)</string>
-    
+    <string name="title_activity_project_test">ProjectTest</string>
+    <string name="title_activity_projects_test">ProjectsTest</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_activity_project_info">ProjectInfoActivity</string>
+    <string name="title_activity_project_stories">ProjectStoriesActivity</string>
+    <string name="title_activity_burn_down">BurnDown</string>
+    <string name="title_activity_graph">GraphActivity</string>
+    <string name="title_activity_sprint_burndown">SprintBurndownActivity</string>
+    <string name="title_activity_sprints">SprintsActivity</string>
 
 </resources>
